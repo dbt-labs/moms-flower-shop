@@ -101,7 +101,6 @@ Complex analytical models with sophisticated business logic:
 - **Special Features**: 
   - Incremental materialization (`user_engagement_score`)
   - Ephemeral models (`executive_kpi_summary`)
-  - Custom materialization (`high_value_customers_audit`, `daily_revenue_summary_audit`)
 
 ## Model Lineage
 

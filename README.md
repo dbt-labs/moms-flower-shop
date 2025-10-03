@@ -109,24 +109,8 @@ Seeds (CSV files)
     ↓  
 Staging Models (Views with stg_ prefix)
     ↓
-├── Analytics New (Basic - Tables)
-└── Analytics (Advanced - Tables/Views/Incremental)
+Analytics 
 ```
-
-## Custom Features
-
-### Custom Macros
-- **`calculate_conversion_rate`**: Standardized conversion rate calculations with configurable precision
-- **`generate_date_spine`**: Creates date sequences for time-series analysis (used in rolling metrics)
-- **`calculate_cohort_metrics`**: Calculates cohort-based time periods (days/weeks/months)
-
-### Custom Materialization: `audit_table`
-A custom materialization that automatically adds audit columns to models:
-- `_audit_user`: Database user who inserted the record
-- `_audit_timestamp`: When the record was created
-- `_audit_operation`: Operation type (INSERT)
-
-Used in: `high_value_customers_audit` and `daily_revenue_summary_audit`
 
 ## Troubleshooting
 

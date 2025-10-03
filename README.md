@@ -14,16 +14,45 @@ The project contains data about:
 
 ```
 ├── dbt_project.yml          # dbt project configuration
+├── macros/
+│   ├── calculate_conversion_rate.sql    # Macro for calculating conversion rates
 ├── models/
-│   ├── staging/             # Staging models (materialized as views)
-│   │   ├── customers.sql
-│   │   ├── inapp_events.sql
-│   │   ├── marketing_campaigns.sql
-│   │   ├── app_installs.sql
-│   │   ├── app_installs_v2.sql
+│   ├── staging/                          # Staging models (materialized as views)
+│   │   ├── stg_customers.sql
+│   │   ├── stg_inapp_events.sql
+│   │   ├── stg_marketing_campaigns.sql
+│   │   ├── stg_app_installs.sql
 │   │   └── stg_installs_per_campaign.sql
-│   └── analytics/           # Analytics models (materialized as tables)
-│       └── agg_installs_and_campaigns.sql
+│   ├── analytics_new/                    # Basic analytics models (7 models)
+│   │   ├── agg_installs_and_campaigns.sql       # Daily install aggregations
+│   │   ├── agg_installs_ranked.sql              # Campaign rankings & performance tiers
+│   │   ├── daily_active_users.sql               # DAU/WAU/MAU metrics
+│   │   ├── platform_performance_metrics.sql     # Platform comparison metrics
+│   │   ├── hourly_event_patterns.sql            # Time-of-day usage patterns
+│   │   ├── geographic_analysis.sql              # State-level analysis
+│   │   └── campaign_roi_dashboard.sql           # Executive ROI dashboard
+│   └── analytics/                        # Advanced analytics models (14 models)
+│       ├── campaign_performance_summary.sql     # Campaign ROI & conversion metrics
+│       ├── campaign_comparison.sql              # Campaign benchmarking & retention
+│       ├── customer_acquisition_cost.sql        # CAC & LTV analysis
+│       ├── customer_lifetime_value.sql          # Customer LTV calculations
+│       ├── customer_cohort_retention.sql        # Cohort retention analysis
+│       ├── customer_segmentation.sql            # RFM segmentation
+│       ├── customer_journey_time.sql            # Time-to-conversion analysis
+│       ├── customer_360_view.sql                # Comprehensive customer view
+│       ├── event_funnel_analysis.sql            # Conversion funnel tracking
+│       ├── weekly_growth_metrics.sql            # Week-over-week growth
+│       ├── monthly_revenue_trends.sql           # Monthly revenue & trends
+│       ├── churn_risk_analysis.sql              # Churn prediction & scoring
+│       ├── product_affinity_analysis.sql        # Event sequences & transitions
+│       ├── user_engagement_score.sql            # Engagement scoring (incremental)
+│       ├── session_analysis.sql                 # Session duration & patterns
+│       ├── marketing_channel_attribution.sql    # Attribution modeling
+│       ├── repeat_purchase_analysis.sql         # Purchase behavior patterns
+│       ├── executive_kpi_summary.sql            # Daily KPIs (ephemeral)
+│       ├── rolling_metrics_snapshot.sql         # Rolling 7/30-day metrics
+│       ├── high_value_customers_audit.sql       # High-value customers (audit_table)
+│       └── daily_revenue_summary_audit.sql      # Daily revenue (audit_table)
 ├── seeds/                   # CSV seed files
 │   ├── raw_customers.csv
 │   ├── raw_addresses.csv
@@ -51,15 +80,54 @@ After updating your schema:
    dbt build
    ```
 
+## Analytics Models Organization
+
+The analytics layer is split into two directories based on complexity:
+
+### `analytics_new/` - Basic Analytics (7 models)
+Foundational, straightforward analytics models with simple aggregations:
+- **Daily & Time-based Metrics**: Install aggregations, DAU/WAU/MAU, hourly patterns
+- **Performance Basics**: Campaign rankings, platform metrics, geographic analysis
+- **Executive Views**: Simple dashboard combining key metrics
+
+These models use basic CTEs and aggregations, perfect for getting started or learning dbt.
+
+### `analytics/` - Advanced Analytics (14 models)
+Complex analytical models with sophisticated business logic:
+- **Customer Analytics**: LTV, cohort retention, segmentation (RFM), 360° view, journey timing
+- **Campaign Analytics**: Performance summary, comparison, ROI, acquisition cost, attribution
+- **Behavioral Analytics**: Event funnels, session analysis, product affinity, engagement scoring
+- **Revenue Analytics**: Weekly/monthly trends, repeat purchase analysis, churn risk
+- **Special Features**: 
+  - Incremental materialization (`user_engagement_score`)
+  - Ephemeral models (`executive_kpi_summary`)
+  - Custom materialization (`high_value_customers_audit`, `daily_revenue_summary_audit`)
+
 ## Model Lineage
 
 ```
 Seeds (CSV files)
     ↓  
-Staging Models (Views)
+Staging Models (Views with stg_ prefix)
     ↓
-Analytics Models (Tables)
+├── Analytics New (Basic - Tables)
+└── Analytics (Advanced - Tables/Views/Incremental)
 ```
+
+## Custom Features
+
+### Custom Macros
+- **`calculate_conversion_rate`**: Standardized conversion rate calculations with configurable precision
+- **`generate_date_spine`**: Creates date sequences for time-series analysis (used in rolling metrics)
+- **`calculate_cohort_metrics`**: Calculates cohort-based time periods (days/weeks/months)
+
+### Custom Materialization: `audit_table`
+A custom materialization that automatically adds audit columns to models:
+- `_audit_user`: Database user who inserted the record
+- `_audit_timestamp`: When the record was created
+- `_audit_operation`: Operation type (INSERT)
+
+Used in: `high_value_customers_audit` and `daily_revenue_summary_audit`
 
 ## Troubleshooting
 

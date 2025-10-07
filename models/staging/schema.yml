@@ -3,13 +3,10 @@ version: 2
 models:
   - name: stg_inapp_events
     description: Cleaned and transformed in-app events with proper timestamp formatting
-    config:
-      primary_key: event_id
     columns:
       - name: event_id
         description: Unique identifier for the event
-
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: customer_id
@@ -26,7 +23,7 @@ models:
     columns:
       - name: campaign_id
         description: Unique campaign identifier
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: campaign_name
@@ -67,7 +64,7 @@ models:
     columns:
       - name: customer_id
         description: Unique customer identifier
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: first_name
@@ -98,7 +95,7 @@ models:
     columns:
       - name: campaign_id
         description: Campaign identifier
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: total_num_installs

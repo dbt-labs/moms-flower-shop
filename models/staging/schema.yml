@@ -42,7 +42,7 @@ models:
       - name: total_campaign_spent
         description: Total amount spent on the campaign
 
-  - name: stg_app_installs
+  - name: stg_flower_orders
     description: >
       This table is a staging table which adds campaign information
       to app install events (alternative version with different join logic)

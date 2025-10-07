@@ -6,7 +6,7 @@ models:
     columns:
       - name: event_id
         description: Unique identifier for the event
-        data_tests:
+        tests:
           - unique
           - not_null
       - name: customer_id
@@ -23,7 +23,7 @@ models:
     columns:
       - name: campaign_id
         description: Unique campaign identifier
-        data_tests:
+        tests:
           - unique
           - not_null
       - name: campaign_name
@@ -64,7 +64,7 @@ models:
     columns:
       - name: customer_id
         description: Unique customer identifier
-        data_tests:
+        tests:
           - unique
           - not_null
       - name: first_name
@@ -95,7 +95,7 @@ models:
     columns:
       - name: campaign_id
         description: Campaign identifier
-        data_tests:
+        tests:
           - unique
           - not_null
       - name: total_num_installs

@@ -10,7 +10,7 @@ WITH hourly_breakdown AS (
         COUNT(DISTINCT customer_id) AS unique_users,
         COUNT(event_id) AS event_count,
         AVG(event_value) AS avg_event_value
-    FROM {{ ref('stg_inapp_events') }}
+    FROM {{ ref('stg_website_events') }}
     GROUP BY 
         DATE(event_time),
         HOUR(event_time),

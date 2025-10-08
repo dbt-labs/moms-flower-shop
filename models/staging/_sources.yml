@@ -1,0 +1,102 @@
+version: 2
+
+sources:
+  - name: moms_flower_shop
+    database: raw
+    schema: flower_shop
+    tables:
+      - name: raw_flower_orders
+        description: Raw flower order data from the mobile app
+        config:
+          loaded_at_query: current_timestamp()
+        columns:
+          - name: order_id
+            description: Unique order identifier
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            description: Customer who placed the order
+          - name: order_time
+            description: Timestamp when the order was placed
+          - name: order_value
+            description: Total amount for the order
+          - name: flowers_amount
+            description: Number of flower items in the order
+          - name: vase_amount
+            description: Number of vases in the order
+          - name: chocolate_amount
+            description: Number of chocolates in the order
+          - name: delivery_id
+            description: Delivery identifier for the order
+          - name: platform
+            description: Platform where the order was placed
+      - name: raw_customers
+        description: Raw customer data from the mobile app
+        columns:
+          - name: id
+            description: Unique customer identifier
+            tests:
+              - unique
+              - not_null
+          - name: first_name
+            description: Customer's first name
+          - name: last_name
+            description: Customer's last name
+          - name: email
+            description: Customer's email address
+            tests:
+              - unique
+          - name: gender
+            description: Customer's gender
+          - name: address_id
+            description: Reference to address
+
+      - name: raw_addresses
+        description: Address information for customers
+        columns:
+          - name: address_id
+            description: Unique address identifier
+            tests:
+              - unique
+              - not_null
+          - name: full_address
+            description: Complete address string
+          - name: state
+            description: State abbreviation
+          - name: city
+            description: City name
+
+      - name: raw_website_events
+        description: Raw in-app events from mobile application
+        columns:
+          - name: event_id
+            description: Unique event identifier
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            description: Customer who triggered the event
+          - name: event_time
+            description: Unix timestamp of the event
+          - name: event_name
+            description: Type of event
+          - name: platform
+            description: Platform where event occurred
+
+      - name: raw_marketing_campaign_events
+        description: Marketing campaign events and costs
+        columns:
+          - name: event_id
+            description: Unique marketing event identifier
+          - name: campaign_id
+            description: Campaign identifier
+          - name: campaign_name
+            description: Campaign name
+          - name: c_name
+            description: Campaign type
+          - name: event_time
+            description: Unix timestamp of the event
+          - name: cost
+            description: Cost of the marketing event
+

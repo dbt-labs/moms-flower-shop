@@ -19,10 +19,10 @@ SELECT
     a.full_address,
     a.city,
     a.state
-FROM {{ ref('raw_customers') }} c 
+FROM {{ source('moms_flower_shop', 'raw_customers') }} c 
 
-    LEFT OUTER JOIN {{ ref('stg_app_installs') }} i
+    LEFT OUTER JOIN {{ ref('stg_website_hits') }} i
         ON (c.id = i.customer_id)
 
-    LEFT OUTER JOIN {{ ref('raw_addresses') }} a
+    LEFT OUTER JOIN {{ source('moms_flower_shop','raw_addresses') }} a
         ON (c.address_id = a.address_id)

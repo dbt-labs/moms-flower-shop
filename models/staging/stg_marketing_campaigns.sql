@@ -13,7 +13,7 @@ SELECT
     COUNT(event_time) AS campaign_duration,
     SUM(cost) AS total_campaign_spent,
     ARRAY_AGG(event_id) AS event_ids
-FROM {{ ref('raw_marketing_campaign_events') }}
+FROM {{ source('moms_flower_shop', 'raw_marketing_campaign_events') }}
 GROUP BY 
     campaign_id,
     campaign_name,

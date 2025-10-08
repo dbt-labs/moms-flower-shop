@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: rolling_metrics
+    description: "Daily snapshot of rolling metrics including orders, revenue, and active users with 7-day and 30-day windows"
+    config:
+      materialized: table
+      tags:
+        - metrics
+        - snapshot
+      primary_key: metric_date
+    columns:
+      - name: metric_date
+        description: "The date for which metrics are calculated"
+        tests:
+          - not_null
+          - unique
+      
+      - name: daily_orders
+        description: "Number of flower orders on this date"
+        tests:
+          - not_null
+      
+      - name: daily_revenue
+        description: "Total revenue from purchases on this date"
+        tests:
+          - not_null
+      
+      - name: daily_active_users
+        description: "Number of unique active users on this date"
+        tests:
+          - not_null
+      
+      - name: rolling_7d_orders
+        description: "Sum of orders over the last 7 days (including current date)"
+      
+      - name: rolling_7d_revenue
+        description: "Sum of revenue over the last 7 days (including current date)"
+      
+      - name: rolling_7d_avg_dau
+        description: "Average daily active users over the last 7 days"
+      
+      - name: rolling_30d_orders
+        description: "Sum of orders over the last 30 days (including current date)"
+      
+      - name: rolling_30d_revenue
+        description: "Sum of revenue over the last 30 days (including current date)"
+      
+      - name: rolling_30d_avg_dau
+        description: "Average daily active users over the last 30 days"
+      
+      - name: rolling_7d_revenue_per_order
+        description: "7-day rolling revenue divided by 7-day rolling orders"
+      
+      - name: rolling_30d_revenue_per_order
+        description: "30-day rolling revenue divided by 30-day rolling orders"

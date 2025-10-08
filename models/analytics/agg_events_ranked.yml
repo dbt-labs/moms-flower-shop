@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: agg_events_ranked
+    description: |
+      Campaign event rankings with performance tiers and percentiles.
+      Ranks all campaigns by event volume and segments them into performance tiers
+      (Top Performer, Above Average, Below Average, Low Performer) based on percentile rankings.
+      Includes aggregate statistics for each performance tier.
+    config:
+      primary_key: campaign_id
+    columns:
+      - name: campaign_id
+        description: Unique campaign identifier
+        tests:
+          - not_null
+      - name: total_num_events
+        description: Total number of events for this campaign
+        tests:
+          - not_null
+      - name: event_rank
+        description: Rank by event volume (1 = highest number of events)
+      - name: event_percentile
+        description: Percentile ranking (0.0 to 1.0) based on event volume
+      - name: performance_tier
+        description: |
+          Performance category: 
+          - Top Performer (>= 75th percentile)
+          - Above Average (50th-75th percentile)
+          - Below Average (25th-50th percentile)
+          - Low Performer (< 25th percentile)
+      - name: campaigns_in_tier
+        description: Number of campaigns in the same performance tier
+      - name: tier_total_events
+        description: Total events across all campaigns in this tier
+      - name: tier_avg_events
+        description: Average events for campaigns in this tier
+      - name: tier_min_events
+        description: Minimum events in this tier
+      - name: tier_max_events
+        description: Maximum events in this tier
+      - name: pct_of_tier_avg
+        description: Campaign's events as percentage of tier average
+      - name: pct_of_total_events
+        description: Campaign's events as percentage of all events
+

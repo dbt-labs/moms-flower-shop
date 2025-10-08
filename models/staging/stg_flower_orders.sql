@@ -1,7 +1,7 @@
 {{ config(materialized='view') }}
 
 WITH raw_flower_orders AS (
-    SELECT * FROM {{ ref('raw_flower_orders') }}
+    SELECT * FROM {{ source('moms_flower_shop','raw_flower_orders') }}
 )
 
 SELECT 

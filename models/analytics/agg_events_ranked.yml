@@ -7,8 +7,6 @@ models:
       Ranks all campaigns by event volume and segments them into performance tiers
       (Top Performer, Above Average, Below Average, Low Performer) based on percentile rankings.
       Includes aggregate statistics for each performance tier.
-    config:
-      primary_key: campaign_id
     columns:
       - name: campaign_id
         description: Unique campaign identifier

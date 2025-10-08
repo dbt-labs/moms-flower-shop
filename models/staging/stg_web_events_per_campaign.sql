@@ -10,7 +10,7 @@ WITH website_events AS (
         COALESCE(m.campaign_name, 'organic') AS campaign_name,
         COALESCE(m.c_name, 'organic') AS campaign_type
     FROM {{ ref('stg_website_events') }} e
-        LEFT JOIN {{ ref('raw_marketing_campaign_events') }} m
+        LEFT JOIN {{ source('moms_flower_shop', 'raw_marketing_campaign_events') }} m
             ON (e.campaign_id = m.campaign_id) 
     WHERE e.event_name = 'page_hit'
 )

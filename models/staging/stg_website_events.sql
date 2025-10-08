@@ -1,7 +1,7 @@
 {{ config(materialized='view') }}
 
 WITH raw_website_events AS (
-    SELECT * FROM {{ ref('raw_website_events') }}
+    SELECT * FROM {{ source('moms_flower_shop', 'raw_website_events') }}
 )
 
 SELECT 

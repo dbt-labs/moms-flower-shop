@@ -8,7 +8,6 @@ models:
       tags:
         - metrics
         - snapshot
-      primary_key: metric_date
     columns:
       - name: metric_date
         description: "The date for which metrics are calculated"

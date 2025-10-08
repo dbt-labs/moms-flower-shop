@@ -3,8 +3,6 @@ version: 2
 models:
   - name: stg_website_events
     description: Cleaned and transformed in-app events with proper timestamp formatting
-    config:
-      primary_key: event_id
     columns:
       - name: event_id
         description: Unique identifier for the event
@@ -46,8 +44,6 @@ models:
     description: >
       This table contains cleaned and processed flower order data
       with proper timestamp formatting
-    config:
-      primary_key: order_id
     columns:
       - name: order_id
         description: Unique identifier for the flower order

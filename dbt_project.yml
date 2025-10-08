@@ -31,7 +31,3 @@ models:
     analytics:
       +materialized: table
       +schema: analytics
-
-seeds:
-  moms_flower_shop:
-    +schema: raw

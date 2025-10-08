@@ -20,7 +20,7 @@ campaign_costs AS (
         SUM(cost) AS total_spend,
         COUNT(DISTINCT event_id) AS total_ad_events,
         AVG(cost) AS avg_cost_per_event
-    FROM {{ ref('stg_marketing_campaigns') }}
+    FROM {{ source('moms_flower_shop', 'raw_marketing_campaign_events') }}
     GROUP BY campaign_id
 ),
 

@@ -21,7 +21,7 @@ SELECT
     a.state
 FROM {{ ref('raw_customers') }} c 
 
-    LEFT OUTER JOIN {{ ref('stg_app_installs') }} i
+    LEFT OUTER JOIN {{ ref('stg_website_hits') }} i
         ON (c.id = i.customer_id)
 
     LEFT OUTER JOIN {{ ref('raw_addresses') }} a

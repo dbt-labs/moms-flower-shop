@@ -37,7 +37,7 @@ seeds:
       - name: city
         description: City name
 
-  - name: raw_inapp_events
+  - name: raw_website_events
     description: Raw in-app events from mobile application
     columns:
       - name: event_id

@@ -1,18 +1,22 @@
 {{ config(materialized='view') }}
 
-SELECT 
-    DISTINCT
-    -- install events data
-    i.event_id,
-    i.customer_id,
-    i.event_time AS install_time,
-    i.platform,
+WITH raw_flower_orders AS (
+    SELECT * FROM {{ ref('raw_flower_orders') }}
+)
 
-    -- marketing campaigns data - if doesn't exist than organic
-    COALESCE(m.campaign_id, -1) AS campaign_id, 
-    COALESCE(m.campaign_name, 'organic') AS campaign_name,
-    COALESCE(m.c_name, 'organic') AS campaign_type
-FROM {{ ref('stg_inapp_events') }} i 
-    JOIN {{ ref('raw_marketing_campaign_events') }} m
-        ON (i.campaign_id = m.campaign_id) 
-WHERE event_name = 'install'
+SELECT 
+    order_id,
+    customer_id,
+    TO_TIMESTAMP(order_time/1000) AS order_time,
+    order_value,
+    flowers_amount,
+    vase_amount,
+    chocolate_amount,
+    delivery_id,
+    platform
+FROM raw_flower_orders
+WHERE order_time IS NOT NULL
+  AND customer_id IS NOT NULL
+  AND order_value IS NOT NULL
+  AND order_time > 0
+

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_inapp_events
+  - name: stg_website_events
     description: Cleaned and transformed in-app events with proper timestamp formatting
     config:
       primary_key: event_id
@@ -44,23 +44,29 @@ models:
 
   - name: stg_flower_orders
     description: >
-      This table is a staging table which adds campaign information
-      to app install events (alternative version with different join logic)
+      This table contains cleaned and processed flower order data
+      with proper timestamp formatting
+    config:
+      primary_key: order_id
     columns:
-      - name: event_id
-        description: Unique identifier for the install event
+      - name: order_id
+        description: Unique identifier for the flower order
       - name: customer_id
-        description: Customer who installed the app
-      - name: install_time
-        description: When the app was installed
+        description: Customer who placed the order
+      - name: order_time
+        description: When the order was placed
+      - name: order_value
+        description: Total value of the order
+      - name: flowers_amount
+        description: Amount spent on flowers
+      - name: vase_amount
+        description: Amount spent on vase
+      - name: chocolate_amount
+        description: Amount spent on chocolate
+      - name: delivery_id
+        description: Associated delivery identifier
       - name: platform
-        description: Platform where the app was installed
-      - name: campaign_id
-        description: Associated marketing campaign (-1 for organic)
-      - name: campaign_name
-        description: Campaign name (organic for non-campaign installs)
-      - name: campaign_type
-        description: Type of campaign (organic for non-campaign installs)
+        description: Platform where the order was placed
 
   - name: stg_customers
     description: Customer information enriched with marketing and address data
@@ -93,14 +99,19 @@ models:
       - name: state
         description: State abbreviation
 
-  - name: stg_installs_per_campaign
-    description: Aggregated install counts by campaign
+  - name: stg_web_events_per_campaign
+    description: Website events enriched with campaign information and aggregated metrics
     columns:
       - name: campaign_id
-        description: Campaign identifier
-        tests:
-          - unique
-          - not_null
-      - name: total_num_installs
-        description: Total number of installs for this campaign
+        description: Campaign identifier (-1 for organic)
+      - name: campaign_name
+        description: Campaign name (organic for non-campaign events)
+      - name: campaign_type
+        description: Campaign type (organic for non-campaign events)
+      - name: platform
+        description: Platform where the event occurred
+      - name: event_time
+        description: When the event occurred
+      - name: total_num_events
+        description: Total number of events for this campaign/platform/time combination
 

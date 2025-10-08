@@ -22,7 +22,7 @@ models:
         tests:
           - not_null
       - name: event_name
-        description: Type of event (install, purchase, view_item, etc.)
+        description: Type of event (page_hit, purchase, view_item, etc.)
         tests:
           - not_null
       - name: avg_unique_users

@@ -1,0 +1,16 @@
+models:
+- name: user_engagement_score
+  description: This model calculates a score representing user engagement based on
+    various interaction metrics. It is used to assess and compare user activity levels
+    across different periods.
+  columns:
+  - name: user_id
+    description: A unique identifier for each user.
+  - name: engagement_score
+    description: A calculated score representing the level of user engagement.
+  - name: interaction_count
+    description: The total number of interactions a user has made.
+  - name: last_active_date
+    description: The most recent date the user was active.
+  - name: is_active
+    description: Indicates whether the user is currently active.

@@ -8,7 +8,7 @@ sources:
       - name: raw_flower_orders
         description: Raw flower order data from the mobile app
         config:
-          loaded_at_query: current_timestamp()
+          loaded_at_field: current_timestamp()
         columns:
           - name: order_id
             description: Unique order identifier
